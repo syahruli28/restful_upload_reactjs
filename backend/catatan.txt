@@ -1,0 +1,3 @@
+1. ketik npm init -y di folder yang akan di inisiasi node(root project backendnya)
+2. install dependenc yang dibutuhkan (disini, ketik npm i express express-fileupload mysql2 sequelize cors)
+3. tambahkan ("type": "module") di package.json sebelum "main": "index.js"
