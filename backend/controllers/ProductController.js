@@ -73,10 +73,12 @@ export const updateProduct = async (req, res)=> {
     if(!product) return res.status(404).json({msg: "No data found"});
 
     let fileName = "";
+    let url = "";
     // cek apakah user input image baru, jika tidak
     if(req.files === null){
-        // variabel fileName diisi dari data dari tb sebelumnya
+        // variabel fileName dan url diisi dari data dari tb sebelumnya
         fileName = Product.image;
+        url = Product.url;
     }else{ // jika user input image baru
         const file = req.files.file; // ambil dari body file yang dikirmkan
         const fileSize = file.data.length; // ambil ukuran imagenya
@@ -98,10 +100,12 @@ export const updateProduct = async (req, res)=> {
             if(err) return res.status(500).json({msg: err.message});
         });
 
+        url = `${req.protocol}://${req.get("host")}/images/${fileName}`; // ambil/buat urlnya
+
     }
 
     const name = req.body.title; // ambil data name baru (yang baru diinput)
-    const url = `${req.protocol}://${req.get("host")}/images/${fileName}`; // ambil/buat urlnya
+    // const url = `${req.protocol}://${req.get("host")}/images/${fileName}`; // ambil/buat urlnya
     
     // simpan ke tb
     try {
